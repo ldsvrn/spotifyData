@@ -1,32 +1,35 @@
 import json
 from statistics import mode
 
-history0 = json.loads(open('./MyData/StreamingHistory0.json', 'r', encoding='utf8').read())
-history1 = json.loads(open('./MyData/StreamingHistory1.json', 'r', encoding='utf8').read())
-
 timePlayed = 0
 artists = []
 songs = []
 
-for i in history0:
-    timePlayed += int(i.get('msPlayed'))
-    artists.append(i.get('artistName'))
-    songs.append(i.get('trackName'))
+for i in range(0,10): # Ouvre max 10 fichiers history, et oh putain je m'attendais pas a ce que ça marche
+    try:
+        history = json.loads(open('./MyData/StreamingHistory{}.json'.format(i), 'r', encoding='utf8').read())
+        for i in history:
+            timePlayed += int(i.get('msPlayed'))
+            artists.append(i.get('artistName'))
+            songs.append(i.get('trackName'))
+    except:
+        break
 
-for i in history1:
-    timePlayed += int(i.get('msPlayed'))
-    artists.append(i.get('artistName'))
-    songs.append(i.get('trackName'))
+print("TOP 10 DES ARTISTES:")
+for top in range(0, 10):
+    mostArtist = mode(artists)
+    print("{}: L'artiste {} écouté {} fois.".format(top+1, mostArtist, artists.count(mostArtist)))
 
-mostArtist = mode(artists)
-mostSongs = mode(songs)
+    while mostArtist in artists: 
+        artists.remove(mostArtist)
 
-print("L'artiste le plus écouté est: {}, écouté en tout {} fois.".format(mostArtist, artists.count(mostArtist)))
-print("La chanson la plus écoutée est: {}, écoutée en tout {} fois.".format(mostSongs, songs.count(mostSongs)))
-print("Temps d'écoute total (arrondi): {}h\n".format(int(timePlayed / 3600000)))
+print("\n\nTOP 10 DES TITRES:")
 
-question = input('Voir combien de fois une chanson a été écoutée (case sensible): ')
-print('La chanson "{}" a été écoutée {} fois.\n'.format(question, songs.count(question)))
+for top in range(0, 10):
+    mostSongs = mode(songs)
+    print("{}: Le titre {} écouté {} fois.".format(top+1, mostSongs, songs.count(mostSongs)))
 
-question2 = input('Voir combien de fois un artiste a été écouté (case sensible): ')
-print('L\'artiste "{}" a été écouté {} fois.\n'.format(question2, artists.count(question2)))
+    while mostSongs in songs: 
+        songs.remove(mostSongs)
+
+print("\n\nTemps d'écoute total (arrondi): {}h\n".format(int(timePlayed / 3600000)))
