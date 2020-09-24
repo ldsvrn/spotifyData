@@ -1,11 +1,12 @@
 import json
+import sys
 from statistics import mode
 
 timePlayed = 0
 artists = []
 songs = []
 
-for i in range(0,10): # Ouvre max 10 fichiers history, et oh putain je m'attendais pas a ce que ça marche
+for i in range(sys.maxsize): # Ouvre fichiers history, et oh putain je m'attendais pas a ce que ça marche
     try:
         history = json.loads(open('./MyData/StreamingHistory{}.json'.format(i), 'r', encoding='utf8').read())
         for i in history:
