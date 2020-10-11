@@ -17,7 +17,7 @@ for i in range(sys.maxsize): # Ouvre fichiers history, et oh putain je m'attenda
         break
 
 print("TOP 10 DES ARTISTES:")
-for top in range(0, 10):
+for top in range(10):
     mostArtist = mode(artists)
     print("{}: L'artiste {} écouté {} fois.".format(top+1, mostArtist, artists.count(mostArtist)))
 
@@ -26,7 +26,7 @@ for top in range(0, 10):
 
 print("\n\nTOP 10 DES TITRES:")
 
-for top in range(0, 10):
+for top in range(10):
     mostSongs = mode(songs)
     print("{}: Le titre {} écouté {} fois.".format(top+1, mostSongs, songs.count(mostSongs)))
 
