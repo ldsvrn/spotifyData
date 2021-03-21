@@ -16,7 +16,7 @@ for i in range(sys.maxsize): # Ouvre fichiers history, et oh putain je m'attenda
     except:
         break
 
-print("TOP 10 DES ARTISTES:")
+print("TOP 10 DES ARTISTES ({} artistes différents):".format(len(set(artists))))
 for top in range(10):
     mostArtist = mode(artists)
     print("{}: L'artiste {} écouté {} fois.".format(top+1, mostArtist, artists.count(mostArtist)))
@@ -24,7 +24,7 @@ for top in range(10):
     while mostArtist in artists: 
         artists.remove(mostArtist)
 
-print("\n\nTOP 10 DES TITRES:")
+print("\n\nTOP 10 DES TITRES: ({} titres différents, {} en tout)".format(len(set(songs)), len(songs)))
 
 for top in range(10):
     mostSongs = mode(songs)
